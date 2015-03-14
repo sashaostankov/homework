@@ -256,7 +256,7 @@
             this.toolButtonSave.Name = "toolButtonSave";
             this.toolButtonSave.Size = new System.Drawing.Size(23, 22);
             this.toolButtonSave.Text = "Сохранить";
-            this.toolButtonSave.Click += new System.EventHandler(this.saveToolButton_Click);
+            this.toolButtonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // toolButtonPrint
             // 
@@ -266,7 +266,7 @@
             this.toolButtonPrint.Name = "toolButtonPrint";
             this.toolButtonPrint.Size = new System.Drawing.Size(23, 22);
             this.toolButtonPrint.Text = "&Печать";
-            this.toolButtonPrint.Click += new System.EventHandler(this.toolButtonPrint_Click);
+            this.toolButtonPrint.Click += new System.EventHandler(this.buttonPrint_Click);
             // 
             // openFileDialog1
             // 

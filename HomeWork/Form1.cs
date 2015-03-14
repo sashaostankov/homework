@@ -63,7 +63,7 @@ namespace HomeWork
             Application.Exit ();
         }
 
-        void saveToolButton_Click (object sender, EventArgs e)
+        void buttonSave_Click (object sender, EventArgs e)
         {
             MenuFileSave ();
         }
@@ -102,11 +102,11 @@ namespace HomeWork
                 e.Column.Name == COLUMN_REPAIR)
             {
                 var dateA = DateTime.ParseExact (e.CellValue1.ToString (),
-                                                "dd.MM.yyyy",
-                                                null);
+                                                 "dd.MM.yyyy",
+                                                 null);
                 var dateB = DateTime.ParseExact (e.CellValue2.ToString (),
-                                                "dd.MM.yyyy",
-                                                null);
+                                                 "dd.MM.yyyy",
+                                                 null);
 
                 e.SortResult = dateA.CompareTo (dateB);
             }
@@ -212,10 +212,10 @@ namespace HomeWork
             message += "Удаленные данные нельзя будет вернуть!";
 
             var res = MessageBox.Show (message,
-                                      caption,
-                                      MessageBoxButtons.YesNo,
-                                      MessageBoxIcon.Warning,
-                                      MessageBoxDefaultButton.Button1);
+                                       caption,
+                                       MessageBoxButtons.YesNo,
+                                       MessageBoxIcon.Warning,
+                                       MessageBoxDefaultButton.Button1);
 
             if (res == DialogResult.Yes)
             {
@@ -264,16 +264,16 @@ namespace HomeWork
                 int value;
 
                 if (int.TryParse (GetValueFromCell (dataGridView1.Rows[i].Cells[COLUMN_ID]),
-                                 out value))
+                                  out value))
                     dataGridView1.Rows[i].Cells[0].Value = set.Contains (value);
             }
 
             if (set.Count > 0)
                 dataGridView1.Sort (dataGridView1.Columns[0],
-                                   System.ComponentModel.ListSortDirection.Descending);
+                                    System.ComponentModel.ListSortDirection.Descending);
             else
                 dataGridView1.Sort (dataGridView1.Columns[1],
-                                   System.ComponentModel.ListSortDirection.Ascending);
+                                    System.ComponentModel.ListSortDirection.Ascending);
         }
 
         void textBoxSearch_TextChanged (object sender, EventArgs e)
@@ -362,7 +362,7 @@ namespace HomeWork
             else
             {
                 errorProvider1.SetError (richTextBoxId,
-                                        "Такой инвентарный номер уже существует");
+                                         "Такой инвентарный номер уже существует");
                 richTextBoxId.BackColor = Color.Red;
                 InvalidTextBoxes.Add ("id");
             }
@@ -372,9 +372,9 @@ namespace HomeWork
             buttonSaveChanges.Enabled = (InvalidTextBoxes.Count == 0);
         }
 
-        void buttonSelectAll_Click(object sender, EventArgs e)
+        void buttonSelectAll_Click (object sender, EventArgs e)
         {
-            if (dataGridView1.AreAllCellsSelected(true))
+            if (dataGridView1.AreAllCellsSelected (true))
             {
                 if (dataGridView1.RowCount > 0)
                 {
@@ -386,11 +386,14 @@ namespace HomeWork
             }
             else
             {
-                dataGridView1.SelectAll();
+                dataGridView1.SelectAll ();
             }
         }
 
-        void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        void printDocument1_PrintPage (
+            object sender,
+            System.Drawing.Printing.PrintPageEventArgs e
+        )
         {
             Graphics g = e.Graphics;
             int x = 0;
@@ -400,7 +403,10 @@ namespace HomeWork
             int colCount = dataGridView1.ColumnCount;
             int rowCount = dataGridView1.RowCount - 1;
 
-            Font font = new Font("Tahoma", 9, FontStyle.Bold, GraphicsUnit.Point);
+            Font font = new Font ("Tahoma",
+                                 9,
+                                 FontStyle.Bold,
+                                 GraphicsUnit.Point);
 
             int[] widthC = new int[colCount];
 
@@ -409,9 +415,11 @@ namespace HomeWork
 
             while (current_col < colCount)
             {
-                if (g.MeasureString(dataGridView1.Columns[current_col].HeaderText.ToString(), font).Width > widthC[current_col])
+                if (g.MeasureString (dataGridView1.Columns[current_col].HeaderText.ToString (),
+                                    font).Width > widthC[current_col])
                 {
-                    widthC[current_col] = (int)g.MeasureString(dataGridView1.Columns[current_col].HeaderText.ToString(), font).Width;
+                    widthC[current_col] = (int)g.MeasureString (dataGridView1.Columns[current_col].HeaderText.ToString (),
+                                                               font).Width;
                 }
                 current_col++;
             }
@@ -420,9 +428,12 @@ namespace HomeWork
             {
                 while (current_col < colCount)
                 {
-                    if (g.MeasureString(dataGridView1[current_col, current_row].Value.ToString(), font).Width > widthC[current_col])
+                    if (g.MeasureString (dataGridView1[current_col, current_row].Value.ToString (),
+                                        font).Width > widthC[current_col])
                     {
-                        widthC[current_col] = (int)g.MeasureString(dataGridView1[current_col, current_row].Value.ToString(), font).Width;
+                        widthC[current_col] = (int)g.MeasureString (dataGridView1[current_col,
+                                                                                 current_row].Value.ToString (),
+                                                                   font).Width;
                     }
                     current_col++;
                 }
@@ -439,17 +450,17 @@ namespace HomeWork
             int height = dataGridView1[current_col, current_row].Size.Height;
 
             Rectangle cell_border;
-            SolidBrush brush = new SolidBrush(Color.Black);
+            SolidBrush brush = new SolidBrush (Color.Black);
 
 
             while (current_col < colCount)
             {
                 width = widthC[current_col];
                 cell_height = dataGridView1[current_col, current_row].Size.Height;
-                cell_border = new Rectangle(x, y, width, height);
-                value = dataGridView1.Columns[current_col].HeaderText.ToString();
-                g.DrawRectangle(new Pen(Color.Black), cell_border);
-                g.DrawString(value, font, brush, x, y);
+                cell_border = new Rectangle (x, y, width, height);
+                value = dataGridView1.Columns[current_col].HeaderText.ToString ();
+                g.DrawRectangle (new Pen (Color.Black), cell_border);
+                g.DrawString (value, font, brush, x, y);
                 x += widthC[current_col];
                 current_col++;
             }
@@ -459,10 +470,10 @@ namespace HomeWork
                 {
                     width = widthC[current_col];
                     cell_height = dataGridView1[current_col, current_row].Size.Height;
-                    cell_border = new Rectangle(x, y, width, height);
-                    value = dataGridView1[current_col, current_row].Value.ToString();
-                    g.DrawRectangle(new Pen(Color.Black), cell_border);
-                    g.DrawString(value, font, brush, x, y);
+                    cell_border = new Rectangle (x, y, width, height);
+                    value = dataGridView1[current_col, current_row].Value.ToString ();
+                    g.DrawRectangle (new Pen (Color.Black), cell_border);
+                    g.DrawString (value, font, brush, x, y);
                     x += widthC[current_col];
                     current_col++;
                 }
@@ -473,20 +484,20 @@ namespace HomeWork
             }
         }
 
-        void toolButtonPrint_Click(object sender, EventArgs e)
+        void buttonPrint_Click (object sender, EventArgs e)
         {
-            PrintData();
+            PrintData ();
         }
 
-        void menuFilePrint_Click(object sender, EventArgs e)
+        void menuFilePrint_Click (object sender, EventArgs e)
         {
-            PrintData();
+            PrintData ();
         }
 
-        void menuHelpAbout_Click(object sender, EventArgs e)
+        void menuHelpAbout_Click (object sender, EventArgs e)
         {
-            FormAbout form = new FormAbout();
-            form.ShowDialog();
+            FormAbout form = new FormAbout ();
+            form.ShowDialog ();
         }
 
         public bool IsValidColumnName (string name)
@@ -546,7 +557,7 @@ namespace HomeWork
             List<DataIO.TrainData> trains;
 
             if (IOManager.ReadXMLFile (out trains,
-                                      IOManager.FileName))
+                                       IOManager.FileName))
             {
                 Trains = new DataIO.DataIO (trains);
                 LoadDataToGUI ();
@@ -577,11 +588,11 @@ namespace HomeWork
                 cellRepair.Value = train.Repair.ToString ("dd.MM.yyyy");
 
                 row.Cells.AddRange (cellCheck,
-                                   cellId,
-                                   cellType,
-                                   cellModel,
-                                   cellCreate,
-                                   cellRepair);
+                                    cellId,
+                                    cellType,
+                                    cellModel,
+                                    cellCreate,
+                                    cellRepair);
 
                 dataGridView1.Rows.Add (row);
             }
@@ -716,10 +727,10 @@ namespace HomeWork
             DateTime res;
 
             return DateTime.TryParseExact (value,
-                                          "dd.MM.yyyy",
-                                          null,
-                                          System.Globalization.DateTimeStyles.None,
-                                          out res);
+                                           "dd.MM.yyyy",
+                                           null,
+                                           System.Globalization.DateTimeStyles.None,
+                                           out res);
         }
 
         public void CheckDatesCreateAndRepair (
@@ -733,7 +744,7 @@ namespace HomeWork
             if (!(validCreate = IsValidDate (create.Text)))
             {
                 errorProvider1.SetError (create,
-                                        "Дата должна быть указана в формате dd.mm.yyyy");
+                                         "Дата должна быть указана в формате dd.mm.yyyy");
                 InvalidTextBoxes.Add ("create");
             }
             else
@@ -745,7 +756,7 @@ namespace HomeWork
             if (!(validRepair = IsValidDate (repair.Text)))
             {
                 errorProvider1.SetError (repair,
-                                        "Дата должна быть указана в формате dd.mm.yyyy");
+                                         "Дата должна быть указана в формате dd.mm.yyyy");
                 InvalidTextBoxes.Add ("repair");
             }
             else
@@ -759,18 +770,18 @@ namespace HomeWork
                 !string.IsNullOrEmpty (repair.Text))
             {
                 var dateCreate = DateTime.ParseExact (create.Text,
-                                                     "dd.MM.yyyy",
-                                                     null);
+                                                      "dd.MM.yyyy",
+                                                      null);
                 var dateRepair = DateTime.ParseExact (repair.Text,
-                                                     "dd.MM.yyyy",
-                                                     null);
+                                                      "dd.MM.yyyy",
+                                                      null);
 
                 if (dateCreate.CompareTo (dateRepair) == 1)
                 {
                     errorProvider1.SetError (richTextBoxCreate,
-                                            "Дата ремонта меньше даты создания");
+                                             "Дата ремонта меньше даты создания");
                     errorProvider1.SetError (richTextBoxRepair,
-                                            "Дата ремонта меньше даты создания");
+                                             "Дата ремонта меньше даты создания");
 
                     InvalidTextBoxes.Add ("create");
                     InvalidTextBoxes.Add ("repair");
@@ -801,19 +812,21 @@ namespace HomeWork
             {
                 linkLabelInternet.Text += "/yandsearch?text=";
                 linkLabelInternet.Text += string.Join ("+",
-                                                      richTextBoxType.Text.Split (new[] { ' ' }));
+                                                       richTextBoxType.Text.Split (new[] { ' ' }));
 
                 if (!string.IsNullOrEmpty (richTextBoxModel.Text))
-                    linkLabelInternet.Text += "+" + string.Join ("+",
-                                                                richTextBoxModel.Text.Split (new[] { ' ' }));
+                    linkLabelInternet.Text += string.Format ("+{0}", string.Join ("+", 
+                                                                                  richTextBoxModel.Text.Split (new[] {
+                        ' '
+                    })));
             }
         }
 
-        public void PrintData()
+        public void PrintData ()
         {
-            PrintPreviewDialog dialog = new PrintPreviewDialog();
+            var dialog = new PrintPreviewDialog ();
             dialog.Document = printDocument1;
-            dialog.ShowDialog();
+            dialog.ShowDialog ();
         }
     }
 }
