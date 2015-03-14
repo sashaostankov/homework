@@ -29,18 +29,6 @@ namespace DataIO
             ));
         }
 
-        // Локомотивы по заданному типу
-        public List<Train> GetTrainsByModel ( string model )
-        {
-            if (string.IsNullOrEmpty (model))
-                return new List<Train> ();
-
-            if (model == "*")
-                return Data;
-
-            return Data.FindAll (x => (x.Model.ToLower() == model.ToLower()));
-        }
-
         // Годы, за которые построено больше всего локомотивов
         public List<Train> GetMostPopularYears ()
         {

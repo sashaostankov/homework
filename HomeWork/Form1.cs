@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace HomeWork
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         public DataIO.DataIO Trains = new DataIO.DataIO ();
         SortedSet<string> InvalidTextBoxes = new SortedSet<string> ();
@@ -23,7 +23,7 @@ namespace HomeWork
             Equals
         }
 
-        public Form1 ()
+        public MainForm ()
         {
             InitializeComponent ();
         }
@@ -372,7 +372,7 @@ namespace HomeWork
             buttonSaveChanges.Enabled = (InvalidTextBoxes.Count == 0);
         }
 
-        private void buttonSelectAll_Click(object sender, EventArgs e)
+        void buttonSelectAll_Click(object sender, EventArgs e)
         {
             if (dataGridView1.AreAllCellsSelected(true))
             {
@@ -390,7 +390,7 @@ namespace HomeWork
             }
         }
 
-        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             Graphics g = e.Graphics;
             int x = 0;
@@ -473,14 +473,20 @@ namespace HomeWork
             }
         }
 
-        private void toolButtonPrint_Click(object sender, EventArgs e)
+        void toolButtonPrint_Click(object sender, EventArgs e)
         {
             PrintData();
         }
 
-        private void menuFilePrint_Click(object sender, EventArgs e)
+        void menuFilePrint_Click(object sender, EventArgs e)
         {
             PrintData();
+        }
+
+        void menuHelpAbout_Click(object sender, EventArgs e)
+        {
+            FormAbout form = new FormAbout();
+            form.ShowDialog();
         }
 
         public bool IsValidColumnName (string name)
@@ -808,12 +814,6 @@ namespace HomeWork
             PrintPreviewDialog dialog = new PrintPreviewDialog();
             dialog.Document = printDocument1;
             dialog.ShowDialog();
-        }
-
-        private void menuHelpAbout_Click(object sender, EventArgs e)
-        {
-            FormAbout form = new FormAbout();
-            form.ShowDialog();
         }
     }
 }

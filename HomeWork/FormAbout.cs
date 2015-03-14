@@ -17,7 +17,7 @@ namespace HomeWork
             InitializeComponent();
         }
 
-        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace HomeWork
             catch { }
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
             {
@@ -34,7 +34,5 @@ namespace HomeWork
             }
             catch { }
         }
-
-
     }
 }
