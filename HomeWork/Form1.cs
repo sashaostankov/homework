@@ -194,16 +194,6 @@ namespace HomeWork
             UpdateYandexLink ();
         }
 
-        void richTextBoxCreate_TextChanged (object sender, EventArgs e)
-        {
-            CheckDatesCreateAndRepair (richTextBoxCreate, richTextBoxRepair);
-        }
-
-        void richTextBoxRepair_TextChanged (object sender, EventArgs e)
-        {
-            CheckDatesCreateAndRepair (richTextBoxCreate, richTextBoxRepair);
-        }
-
         void buttonRemoveRow_Click (object sender, EventArgs e)
         {
             int count = dataGridView1.SelectedRows.Count;
@@ -827,6 +817,42 @@ namespace HomeWork
             var dialog = new PrintPreviewDialog ();
             dialog.Document = printDocument1;
             dialog.ShowDialog ();
+        }
+
+        bool CanChange;
+        bool CanSelect;
+        bool change;
+        bool select;
+
+        void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            CanChange = CanSelect = false;
+
+            if ( Control.ModifierKeys == Keys.Control)
+            {
+                if (e.KeyCode == Keys.E)
+                {
+                    change = !change;
+                    CanChange = true;
+                }
+                else if (e.KeyCode == Keys.W)
+                {
+                    select = !select;
+                    CanSelect = true;
+                }
+            }
+        }
+
+        void MainForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ( CanChange )
+            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                row.Cells[0].Value = change;
+
+            if ( CanSelect)
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+                if (GetValueFromCell(row.Cells[0]) == "True")
+                    row.Selected = select;
         }
     }
 }

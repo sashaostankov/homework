@@ -414,7 +414,7 @@
             // saveFileDialog
             // 
             this.saveFileDialog.DefaultExt = "trains";
-            this.saveFileDialog.Filter = "Файлы данных .trains|*.trains|Все файлы|*.*";
+            this.saveFileDialog.Filter = "Файлы данных .trains|*.trains";
             this.saveFileDialog.Title = "Сохранить базу локомотивов";
             // 
             // label1
@@ -749,6 +749,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(6);
             this.MinimumSize = new System.Drawing.Size(1900, 1020);
@@ -758,6 +759,8 @@
             this.Text = "Программа для работы с базой локомотивов";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Shown += new System.EventHandler(this.eventFormShown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MainForm_KeyPress);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
