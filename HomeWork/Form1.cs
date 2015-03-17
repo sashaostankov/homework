@@ -814,9 +814,19 @@ namespace HomeWork
 
         public void PrintData ()
         {
-            var dialog = new PrintPreviewDialog ();
-            dialog.Document = printDocument1;
-            dialog.ShowDialog ();
+            try
+            {
+                var dialog = new PrintPreviewDialog ();
+                dialog.Document = printDocument1;
+                dialog.ShowDialog ();
+            }
+            catch
+            {
+                MessageBox.Show ("Возможно, принтер не подключен",
+                                "Ошибка",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+            }
         }
 
         bool CanChange;
